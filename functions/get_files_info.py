@@ -11,7 +11,7 @@ def get_files_info(working_directory, directory=None):
         return f'Error: Cannot locate "{directory}" as it is outside the permitted working directory'
     
     if not os.path.isdir(abs_dir_path):
-        return f'Error: "{abs_dir_path} if not a directory"'
+        return f'Error: "{abs_dir_path} is not a directory"'
     
     try:
         files_info = []
