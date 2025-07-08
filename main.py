@@ -51,9 +51,6 @@ def main():
         except Exception as e:
             print(f"Error in generate_contnet: {e}")
 
-    final_response = generate_content(client=client, model_name=model_name, messages=messages, verbose=verbose)
-    print(final_response)
-
 def generate_content(client, model_name, messages, verbose):
     response = client.models.generate_content(
         model = model_name,
@@ -88,6 +85,7 @@ def generate_content(client, model_name, messages, verbose):
         raise Exception("No function responses generated, exiting.")
     
     messages.append(types.Content(role="tool", parts=function_responses))
+
 
 
 if __name__ == "__main__":
