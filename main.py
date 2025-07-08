@@ -28,28 +28,35 @@ def main():
     client = genai.Client(api_key=api_key)
     model_name = "gemini-2.0-flash-001"
 
-    if verbose:
-        print(f"User prompt: {user_prompt}\n")
-
     messages = [
         types.Content(role="user", parts=[types.Part(text=user_prompt)]),
-    ]
+        ]
 
-    iters = 0
-    while True:
-        iters +=1
-        if iters > MAX_ITERS:
-            print(f"Maximum iterations ({MAX_ITERS}) reached.")
-            sys.exit(1)
-        
-        try:
-            final_response = generate_content(client=client, messages=messages, verbose=verbose, model_name=model_name)
-            if final_response:
-                print("Final response:")
-                print(final_response)
-                break
-        except Exception as e:
-            print(f"Error in generate_contnet: {e}")
+    while user_prompt != 'quit':
+        if verbose:
+            print(f"User prompt: {user_prompt}\n")
+
+        iters = 0
+        while True:
+            iters +=1
+            if iters > MAX_ITERS:
+                print(f"Maximum iterations ({MAX_ITERS}) reached.")
+                sys.exit(1)
+            
+            try:
+                final_response = generate_content(client=client, messages=messages, verbose=verbose, model_name=model_name)
+                if final_response:
+                    print("Final response:")
+                    print(final_response)
+                    break
+            except Exception as e:
+                print(f"Error in generate_contnet: {e}")
+
+        user_prompt = input("(type 'quit' to exit): ")
+
+        messages.append(types.Content(role="user", parts=[types.Part(text=user_prompt)]))
+
+
 
 def generate_content(client, model_name, messages, verbose):
     response = client.models.generate_content(
