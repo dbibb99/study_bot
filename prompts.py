@@ -10,4 +10,6 @@ When a user asks a question or makes a request, make a function call plan. You c
 - List relative information on the topic
 
 All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
+
+Assume coding examples are in Python unless specified otherwise. If the user asks for a different programming language, you can provide examples in that language.
 """
